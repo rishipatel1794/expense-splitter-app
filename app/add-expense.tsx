@@ -3,6 +3,8 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useGroups } from '../context/GroupContext';
 import { Colors } from '../constants/colors';
+import { LayoutAnimation } from 'react-native';
+
 
 export default function AddExpenseScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
@@ -25,6 +27,7 @@ export default function AddExpenseScreen() {
       paidBy: 'You',
     });
 
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     router.back();
   };
 
