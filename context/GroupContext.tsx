@@ -1,9 +1,15 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
+export type Member = {
+  id: string;
+  name: string;
+};
+
 export type Expense = {
   id: string;
   title: string;
   amount: number;
+  paidBy: string;
 };
 
 export type Group = {
@@ -11,6 +17,7 @@ export type Group = {
   name: string;
   expenses: Expense[];
 };
+
 
 type GroupContextType = {
   groups: Group[];
@@ -26,9 +33,18 @@ export function GroupProvider({ children }: { children: ReactNode }) {
   const addGroup = (name: string) => {
     setGroups(prev => [
       ...prev,
-      { id: Date.now().toString(), name, expenses: [] },
+      {
+        id: Date.now().toString(),
+        name,
+        expenses: [],
+        members: [
+          { id: '1', name: 'You' },
+          { id: '2', name: 'Friend' },
+        ],
+      },
     ]);
   };
+
 
   const addExpense = (groupId: string, expense: Expense) => {
     setGroups(prev =>
