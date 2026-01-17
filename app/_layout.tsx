@@ -1,24 +1,36 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { GroupProvider } from '../context/GroupContext';
+import { Colors } from '../constants/colors';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+    <GroupProvider>
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: Colors.primary },
+          headerTintColor: '#ffffff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: '700',
+            fontSize: 18,
+          },
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+        }}
+      >
+        <Stack.Screen
+          name="index"
+          options={{ title: 'Expense Splitter 💸' }}
+        />
+        <Stack.Screen
+          name="create-group"
+          options={{ title: 'New Group' }}
+        />
+        <Stack.Screen
+          name="group"
+          options={{ title: 'Group Expenses' }}
+        />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </GroupProvider>
   );
 }
